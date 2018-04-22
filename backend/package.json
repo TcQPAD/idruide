@@ -4,7 +4,7 @@
   "description": "Scaffolding explaining a method for organizing files in an express.js web application project",
   "scripts": {
     "test": "./bin/test.sh",
-    "start": "node ./app/server.js",
+    "start": "nodemon ./app/server.js",
     "lint": "standard"
   },
   "main": "./app/server",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "bistre": "1.0.1",
+    "nodemon": "^1.17.3",
     "standard": "10.0.3",
     "supertest": "3.0.0",
     "tap-dot": "1.0.5",
