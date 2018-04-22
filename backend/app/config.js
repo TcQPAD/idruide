@@ -5,6 +5,9 @@
  * for example: secrets for JWT authentication, your database
  * ports and IP, etc....
  *
+ * You should use env var to keep your secrets
+ * hidden from developers and anyone using your code
+ *
  * @author Maxime Flament
  */
 
