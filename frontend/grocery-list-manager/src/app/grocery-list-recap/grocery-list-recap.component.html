@@ -1,0 +1,8 @@
+<div class="clear-navbar" fxLayout="row" fxLayoutAlign="start space-between" fxLayoutGap="30px">
+  <span>
+    Last Update: {{ (lastUpdate | async) | date:'mediumTime' }}
+    | Total items: {{ (groceryList | async).length }}
+  </span>
+
+  <button (click)="removeAllLists()">Delete All</button>
+</div>

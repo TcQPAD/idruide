@@ -10,7 +10,7 @@ import {NgRedux} from "@angular-redux/store";
 export class AppComponent {
   title = 'app';
 
-  constructor(ngRedux: NgRedux<IAppState>) {
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  constructor(private ngRedux: NgRedux<IAppState>) {
+    this.ngRedux.configureStore(rootReducer, INITIAL_STATE);
   }
 }

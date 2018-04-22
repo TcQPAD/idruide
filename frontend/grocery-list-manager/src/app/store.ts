@@ -1,12 +1,16 @@
 import {IGroceryList} from "./model/interface-grocery-list";
-import {ADD_GROCERY_ITEM, ADD_GROCERY_LIST, REMOVE_GROCERY_ITEM, REMOVE_GROCERY_LIST} from "./actions";
+import {
+  ADD_GROCERY_ITEM, ADD_GROCERY_LIST, REMOVE_ALL_LISTS, REMOVE_GROCERY_ITEM,
+  REMOVE_GROCERY_LIST
+} from "./actions";
 
 export function rootReducer(state, action) {
   switch (action.type) {
     case ADD_GROCERY_LIST:
       action.groceryList.id = state.groceryList.length + 1;
       return Object.assign({}, state, {
-        groceryList: state.groceryList.concat(Object.assign({}, action.todo)),
+        groceryList: state.groceryList.concat(Object.assign({}, action.groceryList)),
+        name: state.groceryList.name,
         lastUpdate: new Date()
       });
 
@@ -21,6 +25,14 @@ export function rootReducer(state, action) {
         lastUpdate: new Date()
       });
 
+    case REMOVE_ALL_LISTS:
+      action.groceryList.id = 0;
+      return Object.assign({}, state, {
+        groceryList: [],
+        name: "",
+        lastUpdate: new Date()
+      });
+
     case ADD_GROCERY_ITEM:
       return Object.assign({}, state, {
         groceryList: state.groceryList.filter(t => t.id !== action.id),
@@ -30,6 +42,7 @@ export function rootReducer(state, action) {
     case REMOVE_GROCERY_ITEM:
       return Object.assign({}, state, {
         groceryList: [],
+        name: "",
         lastUpdate: new Date()
       });
   }
