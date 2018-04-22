@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {IAppState, INITIAL_STATE, rootReducer} from "./store";
+import {NgRedux} from "@angular-redux/store";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(ngRedux: NgRedux<IAppState>) {
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  }
 }
