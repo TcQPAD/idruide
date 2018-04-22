@@ -1,14 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {NgReduxModule} from "@angular-redux/store";
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FlexLayoutModule,
+    NgReduxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

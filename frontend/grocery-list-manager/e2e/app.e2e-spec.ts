@@ -1,14 +1,14 @@
-import { GroceryListManagerPage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('grocery-list-manager App', () => {
-  let page: GroceryListManagerPage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new GroceryListManagerPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
