@@ -1,11 +1,28 @@
-<div class="clear-navbar" fxLayout="column" fxLayoutAlign="center stretch">
-  <div *ngIf="(groceryList | async).length > 0" fxLayout="row" fxLayoutAlign="center space-around">
-
-    <mat-card *ngFor="let g of groceryList | async">
+<div class="clear-navbar no-space-top list-displayer"
+     fxLayout="row"
+     fxLayoutAlign="start space-around"
+     fxLayoutGap="30px"
+     *ngIf="(groceryList | async).length > 0">
+    <mat-card class="min-width-160" *ngFor="let g of groceryList | async">
       <mat-card-header>
-        <mat-card-title>{{g.name}}</mat-card-title>
+        <mat-card-title><h3>{{g.name}}</h3></mat-card-title>
       </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="g.groceryListItems.length > 0">
+          <mat-list>
+            <mat-list-item *ngFor="let i of g.groceryListItems">
+              <p>{{i.name}}</p>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <div *ngIf="g.groceryListItems.length <= 0">
+          This grocery list looks empty...
+          Click Add to add a new item to this list!
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="addGroceryListItem(g._id)">Add Item</button>
+        <button mat-button (click)="removeGroceryList(g._id)">Delete</button>
+      </mat-card-actions>
     </mat-card>
-
-  </div>
 </div>

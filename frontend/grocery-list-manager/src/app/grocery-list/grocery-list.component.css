@@ -1,0 +1,6 @@
+.list-displayer {
+  overflow-y: auto;
+}
+.min-width-160 {
+  min-width: 160px;
+}
