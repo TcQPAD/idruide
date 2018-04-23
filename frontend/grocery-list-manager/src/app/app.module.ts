@@ -11,6 +11,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "./material-module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { GroceryListFormComponent } from './grocery-list-form/grocery-list-form.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from "@angular/material";
+import {GroceryListDialogComponent} from "./grocery-list/dialog/grocery-list-dialog.component";
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { GroceryListFormComponent } from './grocery-list-form/grocery-list-form.
     AppComponent,
     GroceryListComponent,
     GroceryListRecapComponent,
-    GroceryListFormComponent
+    GroceryListFormComponent,
+    GroceryListDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -29,6 +32,7 @@ import { GroceryListFormComponent } from './grocery-list-form/grocery-list-form.
     MaterialModule
   ],
   providers: [],
+  entryComponents: [GroceryListDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

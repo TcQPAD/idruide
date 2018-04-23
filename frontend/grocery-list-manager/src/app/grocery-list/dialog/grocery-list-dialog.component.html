@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add new item : {{data}}</h1>
+<div mat-dialog-content>
+  <p>Name of the item</p>
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="data.item.name"
+           [formControl]="formControl"
+           placeholder="Name of the item">
+    <mat-error *ngIf="formControl.hasError('required')">
+      A name for the new item is required
+    </mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.item" [disabled]="!formControl.valid">Ok</button>
+  <button mat-button (click)="onNoClick()">Back</button>
+</div>
