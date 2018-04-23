@@ -3,8 +3,8 @@
   "version": "3.1.0",
   "description": "Scaffolding explaining a method for organizing files in an express.js web application project",
   "scripts": {
-    "test": "./bin/test.sh",
-    "start": "nodemon ./app/server.js",
+    "test": "mocha",
+    "start": "nodemon ./app/src/server.js",
     "lint": "standard"
   },
   "main": "./app/server",
@@ -19,6 +19,9 @@
   },
   "devDependencies": {
     "bistre": "1.0.1",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.1.1",
     "nodemon": "^1.17.3",
     "standard": "10.0.3",
     "supertest": "3.0.0",
