@@ -4,5 +4,8 @@
     | Total items: {{ (groceryList | async).length }}
   </span>
 
-  <button (click)="removeAllLists()">Delete All</button>
+  <button mat-raised-button
+          color="primary"
+          [disabled]="(groceryList | async).length <= 0"
+          (click)="removeAllLists()">Delete All</button>
 </div>

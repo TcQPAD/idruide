@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgRedux, select} from "@angular-redux/store";
 import {IAppState} from "../store";
 import {IGroceryList} from "../model/interface-grocery-list";
 import {ADD_GROCERY_LIST, REMOVE_GROCERY_LIST} from "../actions";
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-grocery-list',
@@ -19,7 +20,7 @@ export class GroceryListComponent implements OnInit {
       _id: 0,
       name: "",
       groceryListItems: []
-    }
+    };
   }
 
   ngOnInit() {
@@ -31,13 +32,5 @@ export class GroceryListComponent implements OnInit {
    */
   removeGroceryList() {
     this.ngRedux.dispatch({type: REMOVE_GROCERY_LIST, groceryList: this.groceryListModel});
-  }
-
-  /**
-   * Called when the user has clicked on the create a new list
-   * button
-   */
-  onSubmit() {
-    this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: this.groceryListModel});
   }
 }

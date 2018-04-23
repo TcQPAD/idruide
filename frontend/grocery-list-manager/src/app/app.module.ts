@@ -7,20 +7,26 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { GroceryListRecapComponent } from './grocery-list-recap/grocery-list-recap.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MaterialModule} from "./material-module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { GroceryListFormComponent } from './grocery-list-form/grocery-list-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GroceryListComponent,
-    GroceryListRecapComponent
+    GroceryListRecapComponent,
+    GroceryListFormComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     FlexLayoutModule,
     NgReduxModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

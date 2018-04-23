@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgRedux, select} from "@angular-redux/store";
 import {IAppState} from "../store";
-import {REMOVE_GROCERY_LIST} from "../actions";
+import {REMOVE_ALL_LISTS, REMOVE_GROCERY_LIST} from "../actions";
 
 @Component({
   selector: 'app-grocery-list-recap',
@@ -19,6 +19,6 @@ export class GroceryListRecapComponent implements OnInit {
   }
 
   removeAllLists() {
-    this.ngRedux.dispatch({type: REMOVE_GROCERY_LIST});
+    this.ngRedux.dispatch({type: REMOVE_ALL_LISTS});
   }
 }
