@@ -11,7 +11,8 @@
         <div *ngIf="g.groceryListItems.length > 0">
           <mat-list>
             <mat-list-item *ngFor="let i of g.groceryListItems">
-              <p>{{i.name}}</p>
+              <p class="space-right">{{i.name}}</p>
+              <button mat-mini-fab color="primary" (click)="removeGroceryListItem(g._id, i._id)">X</button>
             </mat-list-item>
           </mat-list>
         </div>

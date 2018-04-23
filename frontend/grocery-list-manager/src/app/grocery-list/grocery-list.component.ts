@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgRedux, select} from "@angular-redux/store";
 import {IAppState} from "../store";
-import {ADD_GROCERY_ITEM, REMOVE_GROCERY_LIST} from "../actions";
+import {ADD_GROCERY_ITEM, REMOVE_GROCERY_ITEM, REMOVE_GROCERY_LIST} from "../actions";
 import {IGroceryListItem} from "../model/interface-grocery-list-item";
 import {MatDialog} from "@angular/material";
 import {GroceryListDialogComponent} from "./dialog/grocery-list-dialog.component";
@@ -38,6 +38,10 @@ export class GroceryListComponent implements OnInit {
 
   addGroceryListItem(_id: number) {
     this.openDialog(_id);
+  }
+
+  removeGroceryListItem(parentId: number, childId: number) {
+    this.ngRedux.dispatch({type: REMOVE_GROCERY_ITEM, o: {parent: parentId, child: childId}});
   }
 
   openDialog(_id: number): void {
