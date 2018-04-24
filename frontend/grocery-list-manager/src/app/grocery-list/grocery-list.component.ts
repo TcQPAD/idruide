@@ -73,8 +73,6 @@ export class GroceryListComponent implements OnInit, OnDestroy {
   }
 
   removeGroceryListItem(parentId: number, childId: number) {
-    console.log(childId);
-    console.log(parentId);
     this.groceryListItemServiceSubscription =
       this.groceryListItemsService
         .removeGroceryListItem(parentId, childId)

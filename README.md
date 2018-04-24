@@ -49,6 +49,7 @@ To run the backend, just do the following:
 
 ```
 $   cd backend/app
+$   npm i
 $   npm start
 ```
 
@@ -70,6 +71,7 @@ To start up the frontend application, open a terminal and type :
 
 ```
 $   cd frontend/grocery-list-manager
+$   npm i
 $   npm start
 ```
 

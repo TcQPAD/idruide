@@ -22,9 +22,6 @@ export class GroceryListItemsService {
 
 
   public addItemToList(parentId: number, item: IGroceryListItem) {
-    console.log(parentId);
-    console.log(item);
-
     return this.http.post<{}>(
       this.url + 'post',
       {parent: parentId, groceryListItem: item},
