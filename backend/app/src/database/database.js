@@ -46,15 +46,13 @@ class Database {
     }
   }
 
-  removeFromList(groceryList, item) {
-    // if the list doesn't exist
-    if (!this._groceryLists.includes(groceryList))
-      return;
-
-    if (!this._groceryLists[groceryList].groceryListItems.includes(item))
-      return;
-
-    this._groceryLists[groceryList].groceryListItems.remove(item);
+  removeFromList(groceryListId, item) {
+    let groceryList = this._groceryLists.find(t => t._id = groceryListId);
+    if (groceryList) {
+      let index = this._groceryLists.indexOf(groceryList);
+      if (index > -1)
+        this._groceryLists[index].groceryListItems.splice(index, 1);
+    }
   }
 
   updateListItem(groceryList, item) {

@@ -9,4 +9,9 @@ const addGroceryList = (parent, groceryListItem) => {
   database.addListItem(parent, groceryListItem);
 };
 
+const removeGroceryItem = (parent, groceryListItem) => {
+  database.removeFromList(parent, groceryListItem);
+};
+
 exports.addGroceryList = addGroceryList;
+exports.removeGroceryItem = removeGroceryItem;

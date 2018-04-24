@@ -11,6 +11,9 @@ it('should list ALL GroceryLists at ' + endPoint + ' GET', function(done) {
   chai.request(server)
     .get(endPoint + "/get")
     .end(function(err, res){
+      if (err)
+        done(err);
+
       res.should.have.status(200);
       done();
     });
@@ -28,6 +31,9 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST', func
         }
     })
     .end(function(err, res){
+      if (err)
+        done(err);
+
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('object');
@@ -54,6 +60,9 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
         .get(endPoint + '/get-id')
         .query({_id: 1})
         .end(function(err, res) {
+          if (err)
+            done(err);
+
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
@@ -65,11 +74,15 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
           res.body.success._id.should.equal(1);
           res.body.success.name.should.equal('My List');
           res.body.success.groceryListItems.should.deep.equal([]);
+          done();
 
           chai.request(server)
             .get(endPoint + '/get-id')
             .query({_id: 2})
             .end(function(err, res) {
+              if (err)
+                done(err);
+
               res.should.have.status(200);
               res.should.be.json;
               res.body.should.be.a('object');
@@ -77,8 +90,6 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
               res.body.error.should.be.a('string');
               done();
             });
-
-          done();
         });
     });
 });
