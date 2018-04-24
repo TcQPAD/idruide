@@ -32,12 +32,12 @@ const addGroceryListItem = async (req, res) => {
  */
 const removeGroceryListItem = async (req, res) => {
   log.info('Received DELETE request for ', endPoint);
-  if (!req || !req.body || !req.body.parent || !req.body.groceryListItem) {
-    log.error('Invalid request or missing properties parent and or groceryListItem in request');
+  if (!req || !req.body || !req.body.parent || !req.body._id) {
+    log.error('Invalid request or missing properties parent and or childId in request');
     res.status(400).send({error: 'Invalid request or missing properties parent and or groceryListItem in request'});
   }
   else {
-    groceryListModel.removeGroceryItem(parseInt(req.body.parent, 10), req.body.groceryListItem);
+    groceryListModel.removeGroceryItem(parseInt(req.body.parent, 10), parseInt(req.body._id, 10));
     log.info('Successfully deleted item from GroceryList');
     res.status(200).send({success: 'Successfully deleted item from GroceryList'});
   }

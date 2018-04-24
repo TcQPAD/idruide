@@ -10,7 +10,7 @@ import {catchError} from "rxjs/operators";
 export class GroceryListsService {
 
   private url: string;
-  private httpOptions;
+  private httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
     this.url = GROCERY_LISTS_ENDPOINT;

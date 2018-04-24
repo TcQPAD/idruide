@@ -9,6 +9,7 @@ import {GroceryListItem} from "../model/grocery-list-item";
 import {GroceryListsService} from "../services/grocery-lists/grocery-lists.service";
 import {Subscription} from "rxjs/Subscription";
 import {FormControl} from "@angular/forms";
+import {GroceryListItemsService} from "../services/grocery-list-items/grocery-list-items.service";
 
 @Component({
   selector: 'app-grocery-list',
@@ -21,10 +22,12 @@ export class GroceryListComponent implements OnInit, OnDestroy {
   groceryListItem: IGroceryListItem;
 
   private groceryListServiceSubscription: Subscription;
+  private groceryListItemServiceSubscription: Subscription;
 
   constructor(public dialog: MatDialog,
               private ngRedux: NgRedux<IAppState>,
-              private groceryListService: GroceryListsService) {
+              private groceryListService: GroceryListsService,
+              private groceryListItemsService: GroceryListItemsService) {
     this.groceryListItem = new GroceryListItem({
       _id: 0,
       name: "New Item!"
@@ -41,6 +44,9 @@ export class GroceryListComponent implements OnInit, OnDestroy {
   private performUnsubscribe() {
     if (this.groceryListServiceSubscription)
       this.groceryListServiceSubscription.unsubscribe();
+
+    if (this.groceryListItemServiceSubscription)
+      this.groceryListItemServiceSubscription.unsubscribe();
   }
 
   /**
@@ -48,8 +54,6 @@ export class GroceryListComponent implements OnInit, OnDestroy {
    * in the common state
    */
   removeGroceryList(_id: number) {
-    this.performUnsubscribe();
-
     this.groceryListServiceSubscription =
       this.groceryListService
         .deleteGroceryList(_id)
@@ -69,7 +73,19 @@ export class GroceryListComponent implements OnInit, OnDestroy {
   }
 
   removeGroceryListItem(parentId: number, childId: number) {
-    this.ngRedux.dispatch({type: REMOVE_GROCERY_ITEM, o: {parent: parentId, child: childId}});
+    this.groceryListItemServiceSubscription =
+      this.groceryListItemsService
+        .removeGroceryListItem(parentId, childId)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.ngRedux.dispatch({type: REMOVE_GROCERY_ITEM, o: {parent: parentId, child: childId}});
+
+          },
+          error => {
+            console.error('Error deleting the given item from your list : ', error);
+          }
+        );
   }
 
   openDialog(_id: number): void {
@@ -82,7 +98,16 @@ export class GroceryListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.groceryListItem = new GroceryListItem(result);
-        this.ngRedux.dispatch({type: ADD_GROCERY_ITEM, o: {item: this.groceryListItem, _id: _id}});
+        this.groceryListItemsService.addItemToList(_id, this.groceryListItem)
+          .subscribe(
+            data => {
+              console.log(data);
+              this.ngRedux.dispatch({type: ADD_GROCERY_ITEM, o: {item: this.groceryListItem, _id: _id}});
+            },
+            error => {
+              console.error('Error while saving the new item : ', error);
+            }
+          );
       }
     });
   }

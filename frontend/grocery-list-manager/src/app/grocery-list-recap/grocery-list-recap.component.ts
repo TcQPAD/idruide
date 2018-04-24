@@ -33,8 +33,6 @@ export class GroceryListRecapComponent implements OnInit, OnDestroy {
   }
 
   removeAllLists() {
-    this.performUnsubscribe();
-
     this.groceryListServiceSubscription =
       this.groceryListService
         .deleteAllLists()

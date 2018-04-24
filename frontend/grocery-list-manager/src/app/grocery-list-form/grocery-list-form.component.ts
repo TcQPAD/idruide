@@ -64,9 +64,6 @@ export class GroceryListFormComponent implements OnInit, OnDestroy {
    * button
    */
   onSubmit() {
-    if (this.groceryListServiceSubscription)
-      this.groceryListServiceSubscription.unsubscribe();
-
     this.groceryListServiceSubscription = this.groceryListService.postGroceryList(this.groceryListModel).subscribe(
       data => {
         console.log(data);

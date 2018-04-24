@@ -48,12 +48,20 @@ class Database {
     }
   }
 
-  removeFromList(groceryListId, item) {
+  removeFromList(groceryListId, itemId) {
     let groceryList = this._groceryLists.find(t => t._id = groceryListId);
     if (groceryList) {
       let index = this._groceryLists.indexOf(groceryList);
-      if (index > -1)
-        this._groceryLists[index].groceryListItems.splice(index, 1);
+      if (index > -1) {console.log(itemId)
+        let item = this._groceryLists[index].groceryListItems.find(t => {console.log(t)});
+        console.log(item);
+        if (item) {
+          let indexItem = this._groceryLists[index].groceryListItems.indexOf(item);
+          if (indexItem > -1) {
+            this._groceryLists[index].groceryListItems.splice(indexItem, 1);
+          }
+        }
+      }
     }
   }
 
