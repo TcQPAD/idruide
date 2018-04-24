@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 import {IGroceryList} from "../model/interface-grocery-list";
 import {NgRedux, select} from "@angular-redux/store";
 import {IAppState} from "../store";
 import {ADD_GROCERY_LIST} from "../actions";
+import {GroceryListsService} from "../services/grocery-lists/grocery-lists.service";
+import {Subscription} from "rxjs/Subscription";
+import {GroceryList} from "../model/grocery-list";
 
 @Component({
   selector: 'app-grocery-list-form',
   templateUrl: './grocery-list-form.component.html',
   styleUrls: ['./grocery-list-form.component.css']
 })
-export class GroceryListFormComponent implements OnInit {
+export class GroceryListFormComponent implements OnInit, OnDestroy {
 
   @select() groceryList;
   groceryListModel: IGroceryList;
 
   groceryListFormControl: FormControl;
 
-  constructor(private ngRedux: NgRedux<IAppState>) {
+  private groceryListServiceSubscription: Subscription;
+
+  constructor(private ngRedux: NgRedux<IAppState>,
+              private groceryListService: GroceryListsService) {
     this.groceryListModel = {
       _id: 0,
       name: "",
@@ -30,6 +36,27 @@ export class GroceryListFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.groceryListServiceSubscription =
+      this.groceryListService
+        .getGroceryLists()
+        .subscribe(
+          data => {
+            console.log(data);
+            let groceryLists = data.body || [];
+
+            for (let g of groceryLists) {
+              this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: g});
+            }
+          },
+          error => {
+            console.error('An error occured while retrieving your grocery lists : ', error);
+          }
+        )
+  }
+
+  ngOnDestroy() {
+    if (this.groceryListServiceSubscription)
+      this.groceryListServiceSubscription.unsubscribe();
   }
 
   /**
@@ -37,6 +64,17 @@ export class GroceryListFormComponent implements OnInit {
    * button
    */
   onSubmit() {
-    this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: this.groceryListModel});
+    if (this.groceryListServiceSubscription)
+      this.groceryListServiceSubscription.unsubscribe();
+
+    this.groceryListServiceSubscription = this.groceryListService.postGroceryList(this.groceryListModel).subscribe(
+      data => {
+        console.log(data);
+        this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: this.groceryListModel});
+      },
+      error => {
+        console.error('An error occured while saving the grocery list : ', error);
+      }
+    );
   }
 }

@@ -17,11 +17,13 @@ class Database {
     return this._groceryLists.find(t => t._id === _id);
   }
 
-  removeList(groceryList) {
-    if (!this._groceryLists.includes(groceryList))
-      return;
-
-    this._groceryLists.remove(groceryList);
+  removeList(groceryListId) {
+    let groceryList = this._groceryLists.find(t => t._id = groceryListId);
+    if (groceryList) {
+      let index = this._groceryLists.indexOf(groceryList);
+      if (index > -1)
+        this._groceryLists.splice(index, 1);
+    }
   }
 
   updateList(groceryList) {

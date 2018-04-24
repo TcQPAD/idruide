@@ -32,6 +32,16 @@ const addGroceryList = (groceryList) => {
   database.createList(groceryList)
 };
 
+const removeGroceryList = (groceryListId) => {
+  database.removeList(groceryListId);
+};
+
+const removeAll = () => {
+  database.removeAll();
+};
+
 exports.findAll = findAll;
 exports.addGroceryList = addGroceryList;
 exports.findById = findById;
+exports.removeGroceryList = removeGroceryList;
+exports.removeAll = removeAll;

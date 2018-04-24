@@ -9,11 +9,28 @@
 
 let express = require('express');
 let bodyParser = require('body-parser');
-
+let cors = require('cors');
 let app = express();
 
 // Body parser to be able to read the json in th request
 app.use(bodyParser.json());
+
+// add domains you want to whitelist here
+let originsWhitelist = [
+  'http://localhost:4200',
+  'https://localhost:4200',
+];
+
+// set up CORS
+let corsOptions = {
+  origin: function(origin, callback){
+    let isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+    callback(null, isWhitelisted);
+  },
+  credentials:true
+};
+//here is the magic
+app.use(cors(corsOptions));
 
 // Load the routes
 app.use(require('./site/router'));

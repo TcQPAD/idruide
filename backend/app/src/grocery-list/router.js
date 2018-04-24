@@ -56,9 +56,35 @@ const findGroceryList = async (req, res) => {
   }
 };
 
+/**
+ * Removes the given grocery list from the database
+ */
+const removeGroceryList = async (req, res) => {
+  log.info('Received DELETE request for ', endPoint);
+
+  if (!req || !req.body || !req.body._id) {
+    log.error('Invalid request or missing property _id in request');
+    res.status(400).send({error: 'Invalid request or missing property _id in request'});
+  }
+  else {
+    groceryListModel.removeGroceryList(parseInt(req.body._id, 10));
+    log.info('Successfully remove the grocery list from the database');
+    res.status(200).send({success: 'Successfully remove the grocery list from the database'});
+  }
+};
+
+const removeAllGroceryLists = async (req, res) => {
+  log.info('Received DELETE request to delete all lists for ', endPoint);
+  groceryListModel.removeAll();
+  log.info('Successfully remove all grocery lists from the database');
+  res.status(200).send({success: 'Successfully remove all grocery lists from the database'});
+};
+
 // Endpoint bindings
 router.get('/get', getGroceryLists);
 router.get('/get-id', findGroceryList);
 router.post('/post', addGroceryList);
+router.delete('/delete-list', removeGroceryList);
+router.delete('/delete', removeAllGroceryLists);
 
 module.exports = router;
