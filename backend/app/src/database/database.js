@@ -2,6 +2,9 @@ class Database {
 
   constructor() {
     this._groceryLists = [];
+    this.pk = 0;
+    // should be a map of (pk, itemPk)
+    this.itemsPks = 0;
   }
 
   get groceryLists() {
@@ -10,7 +13,9 @@ class Database {
 
   /* Grocery list operations */
   createList(groceryList) {
+    groceryList._id = this.pk++;
     this._groceryLists.push(groceryList);
+    return this._groceryLists[this._groceryLists.length - 1];
   }
 
   getList(_id) {
@@ -18,11 +23,13 @@ class Database {
   }
 
   removeList(groceryListId) {
-    let groceryList = this._groceryLists.find(t => t._id = groceryListId);
+    let groceryList = this._groceryLists.find(t => t._id === groceryListId);
     if (groceryList) {
       let index = this._groceryLists.indexOf(groceryList);
-      if (index > -1)
+      if (index > -1) {
         this._groceryLists.splice(index, 1);
+        this.pk--;
+      }
     }
   }
 
@@ -37,27 +44,31 @@ class Database {
 
   removeAll() {
     this._groceryLists = [];
+    this.pk = 0;
+    this.itemsPks = 0;
   }
 
   /* Grocery list item operations */
   addListItem(groceryListId, item) {
-    let groceryList = this._groceryLists.find(t => t._id = groceryListId);
+    let groceryList = this._groceryLists.find(t => t._id === groceryListId);
     if (groceryList) {
       let index = this._groceryLists.indexOf(groceryList);
+      item._id = this.itemsPks++;
       this._groceryLists[index].groceryListItems.push(item);
+      return this._groceryLists[index].groceryListItems[this._groceryLists[index].groceryListItems.length - 1];
     }
   }
 
   removeFromList(groceryListId, itemId) {
-    let groceryList = this._groceryLists.find(t => t._id = groceryListId);
+    let groceryList = this._groceryLists.find(t => t._id === groceryListId);
     if (groceryList) {
       let index = this._groceryLists.indexOf(groceryList);
-      if (index > -1) {console.log(itemId)
-        let item = this._groceryLists[index].groceryListItems.find(t => {console.log(t)});
-        console.log(item);
+      if (index > -1) {
+        let item = this._groceryLists[index].groceryListItems.find(t => t._id === itemId);
         if (item) {
           let indexItem = this._groceryLists[index].groceryListItems.indexOf(item);
           if (indexItem > -1) {
+            this.itemsPks--;
             this._groceryLists[index].groceryListItems.splice(indexItem, 1);
           }
         }

@@ -22,7 +22,14 @@ export class GroceryListItemsService {
 
 
   public addItemToList(parentId: number, item: IGroceryListItem) {
-    return this.http.post<{}>(this.url + 'post', {parent: parentId, groceryListItem: item}, this.httpOptions)
+    console.log(parentId);
+    console.log(item);
+
+    return this.http.post<{}>(
+      this.url + 'post',
+      {parent: parentId, groceryListItem: item},
+      this.httpOptions
+    )
       .pipe(catchError(this.handleError));
   }
 

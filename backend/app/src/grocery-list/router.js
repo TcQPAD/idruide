@@ -27,14 +27,14 @@ const getGroceryLists = async (req, res) => {
 const addGroceryList = async (req, res) => {
   log.info('Received POST request for ', endPoint);
 
-  if (!req || !req.body || !req.body.groceryList) {
+  if (!req || !req.body || typeof req.body.groceryList === 'undefined') {
     log.error('Invalid request or missing property groceryList in request');
     res.status(400).send({error: 'Invalid request or missing property groceryList in request'});
   }
   else {
-    groceryListModel.addGroceryList(req.body.groceryList);
+    let g = groceryListModel.addGroceryList(req.body.groceryList);
     log.info('Successfully inserted new GroceryList entry to the database');
-    res.status(200).send({success: 'Successfully inserted new GroceryList entry to the database'});
+    res.status(200).send({success: 'Successfully inserted new GroceryList entry to the database', obj: g});
   }
 };
 
@@ -45,7 +45,7 @@ const addGroceryList = async (req, res) => {
 const findGroceryList = async (req, res) => {
   log.info('Received POST request for ', endPoint);
 
-  if (!req || !req.query || !req.query._id) {
+  if (!req || !req.query || typeof req.query._id === 'undefined') {
     log.error('Invalid request or missing property _id in request');
     res.status(400).send({error: 'Invalid request or missing property _id in request'});
   }
@@ -62,7 +62,7 @@ const findGroceryList = async (req, res) => {
 const removeGroceryList = async (req, res) => {
   log.info('Received DELETE request for ', endPoint);
 
-  if (!req || !req.body || !req.body._id) {
+  if (!req || !req.body || typeof req.body._id === 'undefined') {
     log.error('Invalid request or missing property _id in request');
     res.status(400).send({error: 'Invalid request or missing property _id in request'});
   }

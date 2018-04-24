@@ -54,7 +54,7 @@ it('should add a new GroceryList to the database at ' + endPointList + ' POST, a
 
       chai.request(server)
         .delete(endPoint + '/delete')
-        .send({parent: 4, groceryListItem: {_id: 0, name: 'New item'}})
+        .send({parent: 4, _id: 0})
         .end(function (err, res) {
           if (err)
             done(err);
@@ -68,3 +68,5 @@ it('should add a new GroceryList to the database at ' + endPointList + ' POST, a
         });
     });
 });
+
+// todo test remove procedures

@@ -27,8 +27,8 @@ export class GroceryListsService {
       .pipe(catchError(this.handleError));
   }
 
-  public postGroceryList(groceryList: IGroceryList) : Observable<HttpResponse<{}>> {
-    return this.http.post<{}>(this.url + 'post', {groceryList: groceryList}, this.httpOptions)
+  public postGroceryList(groceryList: IGroceryList) : Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.url + 'post', {groceryList: groceryList}, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 

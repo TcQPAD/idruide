@@ -73,7 +73,7 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
           res.body.success.should.have.property('groceryListItems');
           res.body.success._id.should.equal(1);
           res.body.success.name.should.equal('My List');
-          res.body.success.groceryListItems.should.deep.equal([]);
+          res.body.success.groceryListItems.should.deep.equal([{ _id: 0, name: 'New item' }]);
           done();
 
           chai.request(server)
@@ -93,3 +93,5 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
         });
     });
 });
+
+// todo test remove procedures

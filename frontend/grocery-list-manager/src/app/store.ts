@@ -7,11 +7,6 @@ import {
 export function rootReducer(state, action) {
   switch (action.type) {
     case ADD_GROCERY_LIST:
-      action.groceryList._id =
-        state.groceryList.length <= 0 ?
-        1 :
-        state.groceryList[state.groceryList.length - 1]._id + 1;
-
       return Object.assign({}, state, {
         groceryList: state.groceryList.concat(Object.assign({}, action.groceryList)),
         name: state.groceryList.name,
@@ -33,18 +28,13 @@ export function rootReducer(state, action) {
       return Object.assign({}, state, {
         groceryList: [],
         name: "",
-        lastUpdate: new Date()
+        lastUpdate: new Date(),
       });
 
     case ADD_GROCERY_ITEM:
       let obj = action.o;
       let g = state.groceryList.find(t => t._id === obj._id);
       let i = state.groceryList.indexOf(g);
-
-      obj.item._id =
-        state.groceryList[i].groceryListItems.length <= 0 ?
-        1 :
-        state.groceryList[i].groceryListItems[state.groceryList[i].groceryListItems.length - 1]._id + 1;
 
       const newGroceryList = {
         _id: state.groceryList[i]._id,
@@ -99,5 +89,5 @@ export interface IAppState {
 export const INITIAL_STATE: IAppState = {
   groceryList: [],
   name: "",
-  lastUpdate: null
+  lastUpdate: null,
 };

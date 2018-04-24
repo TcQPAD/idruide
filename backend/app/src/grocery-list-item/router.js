@@ -15,14 +15,15 @@ let router = require('express').Router();
  */
 const addGroceryListItem = async (req, res) => {
   log.info('Received POST request for ', endPoint);
-  if (!req || !req.body || !req.body.parent || !req.body.groceryListItem) {
+
+  if (!req || !req.body || typeof req.body.parent === 'undefined' ||typeof req.body.groceryListItem === 'undefined') {
     log.error('Invalid request or missing properties parent and or groceryListItem in request');
     res.status(400).send({error: 'Invalid request or missing properties parent and or groceryListItem in request'});
   }
   else {
-    groceryListModel.addGroceryList(parseInt(req.body.parent, 10), req.body.groceryListItem);
+    let g = groceryListModel.addGroceryList(parseInt(req.body.parent, 10), req.body.groceryListItem);
     log.info('Successfully inserted new GroceryList item entry to the database');
-    res.status(200).send({success: 'Successfully inserted new GroceryList item entry to the database'});
+    res.status(200).send({success: 'Successfully inserted new GroceryList item entry to the database', obj: g});
   }
 };
 
@@ -32,7 +33,7 @@ const addGroceryListItem = async (req, res) => {
  */
 const removeGroceryListItem = async (req, res) => {
   log.info('Received DELETE request for ', endPoint);
-  if (!req || !req.body || !req.body.parent || !req.body._id) {
+  if (!req || !req.body || typeof req.body.parent === 'undefined' || typeof req.body._id === 'undefined') {
     log.error('Invalid request or missing properties parent and or childId in request');
     res.status(400).send({error: 'Invalid request or missing properties parent and or groceryListItem in request'});
   }

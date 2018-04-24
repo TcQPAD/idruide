@@ -73,6 +73,8 @@ export class GroceryListComponent implements OnInit, OnDestroy {
   }
 
   removeGroceryListItem(parentId: number, childId: number) {
+    console.log(childId);
+    console.log(parentId);
     this.groceryListItemServiceSubscription =
       this.groceryListItemsService
         .removeGroceryListItem(parentId, childId)
@@ -80,7 +82,6 @@ export class GroceryListComponent implements OnInit, OnDestroy {
           data => {
             console.log(data);
             this.ngRedux.dispatch({type: REMOVE_GROCERY_ITEM, o: {parent: parentId, child: childId}});
-
           },
           error => {
             console.error('Error deleting the given item from your list : ', error);
@@ -103,7 +104,7 @@ export class GroceryListComponent implements OnInit, OnDestroy {
             data => {
               console.log(data);
               this.ngRedux.dispatch({type: ADD_GROCERY_ITEM, o: {item: this.groceryListItem, _id: _id}});
-            },
+              },
             error => {
               console.error('Error while saving the new item : ', error);
             }

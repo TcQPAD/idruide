@@ -29,7 +29,7 @@ const findById = (_id) => {
  * Adds a new grocery list into the database
  */
 const addGroceryList = (groceryList) => {
-  database.createList(groceryList)
+  return database.createList(groceryList)
 };
 
 const removeGroceryList = (groceryListId) => {

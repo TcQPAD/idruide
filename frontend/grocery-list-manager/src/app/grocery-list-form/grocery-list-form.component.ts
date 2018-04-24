@@ -66,8 +66,8 @@ export class GroceryListFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.groceryListServiceSubscription = this.groceryListService.postGroceryList(this.groceryListModel).subscribe(
       data => {
-        console.log(data);
-        this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: this.groceryListModel});
+        this.ngRedux.dispatch({type: ADD_GROCERY_LIST, groceryList: data['obj']});
+        console.log(data['obj'])
       },
       error => {
         console.error('An error occured while saving the grocery list : ', error);
