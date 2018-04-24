@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../src/server');
+const server = require('../src/index');
 const should = chai.should();
 
 chai.use(chaiHttp);
@@ -54,7 +54,6 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
         .get(endPoint + '/get-id')
         .query({_id: 1})
         .end(function(err, res) {
-          console.log(res.success);
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
@@ -66,6 +65,19 @@ it('should add a new GroceryList to the database at ' + endPoint + ' POST, and g
           res.body.success._id.should.equal(1);
           res.body.success.name.should.equal('My List');
           res.body.success.groceryListItems.should.deep.equal([]);
+
+          chai.request(server)
+            .get(endPoint + '/get-id')
+            .query({_id: 2})
+            .end(function(err, res) {
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.should.be.a('object');
+              res.body.should.have.property('error');
+              res.body.error.should.be.a('string');
+              done();
+            });
+
           done();
         });
     });

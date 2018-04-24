@@ -30,5 +30,3 @@ app.listen(config.express.port, config.express.ip, (error) => {
   log.info('express is listening on http://' +
     config.express.ip + ':' + config.express.port)
 });
-
-module.exports = app;

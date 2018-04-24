@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 // Load the routes
 app.use(require('./site/router'));
 app.use('/grocery-lists', require('./grocery-list/router'));
+app.use('/grocery-list-items', require('./grocery-list-item/router'));
 // Repeat the above line for additional model areas
 
 // FINALLY, use any error handlers

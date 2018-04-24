@@ -51,7 +51,6 @@ const findGroceryList = async (req, res) => {
   }
   else {
     let groceryList = await groceryListModel.findById(parseInt(req.query._id, 10));
-    console.log(groceryList)
     log.info('Successfully retrieved the grocery list from the database');
     res.status(200).send({success: groceryList});
   }
