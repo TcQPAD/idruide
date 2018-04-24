@@ -33,7 +33,15 @@ No need to persist data in a database, memory is enough.
 
 I used NodeJS v7.8.0 along with npm v4.2.0 to write and run the backend.
 
-I ran some unit tests for both set of endpoints that the backend exposes,
+To run the backend, just do the following:
+
+```
+$   cd backend/app
+$   npm i
+$   npm start
+```
+
+I wrote some unit tests for both set of endpoints that the backend exposes,
 if you'd wish to run them, you'll need to install mocha globally :
 
 `npm i -g mocha`
@@ -45,13 +53,7 @@ $   cd backend/app
 $   mocha
 ```
 
-To run the backend, just do the following:
-
-```
-$   cd backend/app
-$   npm i
-$   npm start
-```
+be sure you ran `npm i` before using `mocha` !
 
 At the moment, npm start boots up the server using nodemon. Nodemon
 is a dev utility that will recompile files with changes.
